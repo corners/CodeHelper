@@ -9,13 +9,8 @@ namespace CodeHelper
     /// <summary>
     /// Facade for Logic class will become interface
     /// </summary>
-    public class Builder
+    public class Builder : IBuilder
     {
-        public List<Variable> ParseMemberList(string input)
-        {
-            return Logic.ParseMemberList(input);
-        }
-
         public string BuildMemberList(List<Variable> variables, ushort tabLevel = 0)
         {
             return Logic.BuildMemberList(variables, tabLevel);

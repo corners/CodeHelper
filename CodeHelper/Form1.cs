@@ -19,7 +19,8 @@ namespace CodeHelper
 
         bool UpdatesEnabled = true;
 
-        Builder _builder = new Builder();
+        IBuilder _builder = new Builder();
+        IParser _parser = new Parser();
 
         void WithoutUpdates(params Action[] actions)
         {
@@ -87,7 +88,7 @@ namespace CodeHelper
             if (!UpdatesEnabled)
                 return;
 
-            var variables = _builder.ParseMemberList(memberListInput.Text);
+            var variables = _parser.GetVariables(memberListInput.Text);
 
             var updates = from action in actions
                           let a = new Action(() => action(variables))
