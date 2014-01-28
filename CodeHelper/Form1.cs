@@ -19,6 +19,8 @@ namespace CodeHelper
 
         bool UpdatesEnabled = true;
 
+        Builder _builder = new Builder();
+
         void WithoutUpdates(params Action[] actions)
         {
             try
@@ -80,12 +82,12 @@ namespace CodeHelper
             classDefinition.Text = ResultOrError(() => Logic.BuildClass(variables, GetClassName()));
         }
 
-        void UpdateUi(params Action<List<Variable>>[] actions)
+        void UpdateUiFromMemberList(params Action<List<Variable>>[] actions)
         {
             if (!UpdatesEnabled)
                 return;
 
-            var variables = Logic.ParseMemberList(memberListInput.Text);
+            var variables = _builder.ParseMemberList(memberListInput.Text);
 
             var updates = from action in actions
                           let a = new Action(() => action(variables))
@@ -96,22 +98,22 @@ namespace CodeHelper
 
         private void memberInput_TextChanged(object sender, EventArgs e)
         {
-            UpdateUi(UpdateParameterList, UpdateMemberAssignment, UpdateClass, UpdateCooyAssignment);
+            UpdateUiFromMemberList(UpdateParameterList, UpdateMemberAssignment, UpdateClass, UpdateCooyAssignment);
         }
 
         private void parameterInput_TextChanged(object sender, EventArgs e)
         {
-            UpdateUi(UpdateMemberList, UpdateMemberAssignment, UpdateClass, UpdateCooyAssignment);
+            UpdateUiFromMemberList(UpdateMemberList, UpdateMemberAssignment, UpdateClass, UpdateCooyAssignment);
         }
 
         private void contructorInput_TextChanged(object sender, EventArgs e)
         {
-            UpdateUi(UpdateMemberList, UpdateMemberAssignment, UpdateClass, UpdateCooyAssignment);
+            UpdateUiFromMemberList(UpdateMemberList, UpdateMemberAssignment, UpdateClass, UpdateCooyAssignment);
         }
 
         private void classNameInput_TextChanged(object sender, EventArgs e)
         {
-            UpdateUi(UpdateClass);
+            UpdateUiFromMemberList(UpdateClass);
         }
     }
 }

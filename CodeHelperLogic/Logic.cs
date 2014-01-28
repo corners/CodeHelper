@@ -40,7 +40,7 @@ namespace CodeHelper
             | RegexOptions.Compiled
             );
 
-        public static List<Variable> ParseMemberList(string text)
+        internal static List<Variable> ParseMemberList(string text)
         {
             var result = new List<Variable>();
 
@@ -81,12 +81,12 @@ namespace CodeHelper
             return Char.IsUpper(name[0]);
         }
 
-        static string ParameterName(string name)
+        internal static string ParameterName(string name)
         {
             return LowerCaseFirstChar(RootNameFromMember(name));
         }
 
-        static string MemberName(string name)
+        internal static string MemberName(string name)
         {
             return name;
         }
