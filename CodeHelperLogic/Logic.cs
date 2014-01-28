@@ -29,9 +29,9 @@ namespace CodeHelper
         }
     }
 */
-    static class Logic
+    public static class Logic
     {
-        static string Pattern = "[?\\t ]*(?:(?<modifiers>public|private|internal|protected|readonly|static|const) )?(?<type>[a-z" +
+        static string Pattern = "[?\\t ]*(?:(?<modifiers>public|private|public|protected|readonly|static|const) )?(?<type>[a-z" +
       "A-Z0-9<>\\?\\,]*) (?<name>[_a-zA-Z0-9]*);";
 
         static Regex regex = new Regex(Pattern,
@@ -56,7 +56,7 @@ namespace CodeHelper
             return result;
         }
 
-        internal static List<Variable> ParseParameterList(string text)
+        public static List<Variable> ParseParameterList(string text)
         {
             return new List<Variable>(); // todo
         }
@@ -91,7 +91,7 @@ namespace CodeHelper
             return name;
         }
 
-        internal static string Indent(ushort level, string format, params object[] args)
+        public static string Indent(ushort level, string format, params object[] args)
         {
             var sb = new StringBuilder();
             sb.Append(new string(' ', (int)(level * 4)));
@@ -99,19 +99,19 @@ namespace CodeHelper
             return sb.ToString();
         }
 
-        internal static string BuildMemberList(List<Variable> variables, ushort tabLevel = 0)
+        public static string BuildMemberList(List<Variable> variables, ushort tabLevel = 0)
         {
             var list = variables.Select(v => Indent(tabLevel, "{0} {1} {2}", v.Access, v.Type, MemberName(v.Name)));
             return string.Join(";" + Environment.NewLine, list);
         }
 
-        internal static string BuildParameterList(List<Variable> variables)
+        public static string BuildParameterList(List<Variable> variables)
         {
             var list = variables.Select(v => string.Format("{0} {1}", v.Type, ParameterName(v.Name)));
             return string.Join(", ", list);
         }
 
-        internal static string BuildCopyAssignmentList(List<Variable> variables, ushort tabLevel = 0)
+        public static string BuildCopyAssignmentList(List<Variable> variables, ushort tabLevel = 0)
         {
             var tabs = new string('\t', (int)tabLevel);
             var list = variables.Select(v => Indent(tabLevel, "this.{0} = other.{0}", MemberName(v.Name)));
@@ -119,21 +119,21 @@ namespace CodeHelper
         }
 
 
-        internal static string BuildMemberAssignmentList(List<Variable> variables, ushort tabLevel = 0)
+        public static string BuildMemberAssignmentList(List<Variable> variables, ushort tabLevel = 0)
         {
             var tabs = new string('\t', (int)tabLevel);
             var list = variables.Select(v => Indent(tabLevel, "this.{0} = {1}", MemberName(v.Name), ParameterName(v.Name)));
             return string.Join(";" + Environment.NewLine, list);
         }
 
-        internal static string BuildHashCodes(List<Variable> variables, ushort tabLevel = 0)
+        public static string BuildHashCodes(List<Variable> variables, ushort tabLevel = 0)
         {
             var tabs = new string('\t', (int)tabLevel);
             var list = variables.Select(v => Indent(tabLevel, "hash = hash * 23 + HashOrDefault({0});", MemberName(v.Name)));
             return string.Join(Environment.NewLine, list);
         }
 
-        internal static List<Variable> InferTypes(List<Variable> variables, params List<Variable>[] possibles)
+        public static List<Variable> InferTypes(List<Variable> variables, params List<Variable>[] possibles)
         {
             var lookup = (from list in possibles
                           from variable in list
@@ -146,7 +146,7 @@ namespace CodeHelper
             return variables.Select(v => new Variable(v.Name, PickType(lookup.ValueOrDefault(v.Name, new string[] { })), "public")).ToList();
         }
 
-        internal static string PickType(IEnumerable<string> options)
+        public static string PickType(IEnumerable<string> options)
         {
             if (options.Any())
                 return options.First();
@@ -187,7 +187,7 @@ namespace CodeHelper
 ";
 
 
-        internal static string BuildClass(List<Variable> variables, string name)
+        public static string BuildClass(List<Variable> variables, string name)
         {
             var sb = new StringBuilder();
 

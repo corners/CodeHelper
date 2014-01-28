@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeHelper
 {
-    class Variable
+    public class Variable
     {
         /// <summary>
         /// Member name

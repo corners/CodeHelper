@@ -1,4 +1,4 @@
 ﻿TODO
 ====
 
-1. lists need trailing separator
+1. Use Rosyln to parse code
