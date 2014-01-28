@@ -70,6 +70,11 @@ namespace CodeHelper
             memberAssignmentInput.Text = ResultOrError(() => Logic.BuildMemberAssignmentList(variables, 0));
         }
 
+        void UpdateCooyAssignment(List<Variable> variables)
+        {
+            copyAssignments.Text = ResultOrError(() => Logic.BuildCopyAssignmentList(variables, 0));
+        }
+
         void UpdateClass(List<Variable> variables)
         {
             classDefinition.Text = ResultOrError(() => Logic.BuildClass(variables, GetClassName()));
@@ -91,17 +96,22 @@ namespace CodeHelper
 
         private void memberInput_TextChanged(object sender, EventArgs e)
         {
-            UpdateUi(UpdateParameterList, UpdateMemberAssignment, UpdateClass);
+            UpdateUi(UpdateParameterList, UpdateMemberAssignment, UpdateClass, UpdateCooyAssignment);
         }
 
         private void parameterInput_TextChanged(object sender, EventArgs e)
         {
-            UpdateUi(UpdateMemberList, UpdateMemberAssignment, UpdateClass);
+            UpdateUi(UpdateMemberList, UpdateMemberAssignment, UpdateClass, UpdateCooyAssignment);
         }
 
         private void contructorInput_TextChanged(object sender, EventArgs e)
         {
-            UpdateUi(UpdateMemberList, UpdateMemberAssignment, UpdateClass);
+            UpdateUi(UpdateMemberList, UpdateMemberAssignment, UpdateClass, UpdateCooyAssignment);
+        }
+
+        private void classNameInput_TextChanged(object sender, EventArgs e)
+        {
+            UpdateUi(UpdateClass);
         }
     }
 }
