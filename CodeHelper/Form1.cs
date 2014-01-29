@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeHelperLogicRoslyn;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,7 +21,8 @@ namespace CodeHelper
         bool UpdatesEnabled = true;
 
         IBuilder _builder = new Builder();
-        IParser _parser = new Parser();
+        //IParser _parser = new Parser();
+        IParser _parser = new RParser();
 
         void WithoutUpdates(params Action[] actions)
         {

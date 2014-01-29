@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeHelper", "CodeHelper\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeHelperLogic", "CodeHelperLogic\CodeHelperLogic.csproj", "{BB3396C0-0287-4071-8A8C-D45FC4D667BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeHelperLogicRoslyn", "CodeHelperLogicRoslyn\CodeHelperLogicRoslyn.csproj", "{22ACCB53-D744-4BC3-9922-B68FD12A0FA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{BB3396C0-0287-4071-8A8C-D45FC4D667BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB3396C0-0287-4071-8A8C-D45FC4D667BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB3396C0-0287-4071-8A8C-D45FC4D667BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22ACCB53-D744-4BC3-9922-B68FD12A0FA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22ACCB53-D744-4BC3-9922-B68FD12A0FA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22ACCB53-D744-4BC3-9922-B68FD12A0FA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22ACCB53-D744-4BC3-9922-B68FD12A0FA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
