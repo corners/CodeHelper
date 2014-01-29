@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RBuilder.cs" />
     <Compile Include="RParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

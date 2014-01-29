@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeHelperLogicRoslyn;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +15,12 @@ namespace CodeHelper
         [STAThread]
         static void Main()
         {
+            IBuilder builder = new Builder();
+            IParser parser = new RParser();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new ClassBuilderForm(builder, parser));
         }
     }
 }

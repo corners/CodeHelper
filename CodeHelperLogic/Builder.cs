@@ -11,35 +11,9 @@ namespace CodeHelper
     /// </summary>
     public class Builder : IBuilder
     {
-        public string BuildMemberList(List<Variable> variables, ushort tabLevel = 0)
+        public string BuildClass(string name, IEnumerable<Variable> variables)
         {
-            return Logic.BuildMemberList(variables, tabLevel);
-        }
-
-        public string BuildParameterList(List<Variable> variables)
-        {
-            return Logic.BuildParameterList(variables);
-        }
-
-        public string BuildCopyAssignmentList(List<Variable> variables, ushort tabLevel = 0)
-        {
-            return Logic.BuildCopyAssignmentList(variables, tabLevel);
-        }
-
-
-        public string BuildMemberAssignmentList(List<Variable> variables, ushort tabLevel = 0)
-        {
-            return Logic.BuildMemberAssignmentList(variables, tabLevel);
-        }
-
-        public string BuildHashCodes(List<Variable> variables, ushort tabLevel = 0)
-        {
-            return Logic.BuildHashCodes(variables, tabLevel);
-        }
-
-        public List<Variable> InferTypes(List<Variable> variables, params List<Variable>[] possibles)
-        {
-            return Logic.InferTypes(variables, possibles);            
+            return Logic.BuildClass(variables.ToList(), name);
         }
     }
 }
