@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,22 +22,37 @@ namespace CodeHelper
             _parser = parser;
         }
 
-        bool _updatesEnabled = true;
         IBuilder _builder;
         IParser _parser;
 
-        void IgnoreUpdates(params Action[] actions)
+        private void ClassBuilderForm_Load(object sender, EventArgs e)
         {
-            try
-            {
-                _updatesEnabled = false;
-                foreach (var action in actions)
-                   action();
-            }
-            finally
-            {
-                _updatesEnabled = true;
-            }
+            var variablesChanged = Observable.FromEventPattern<EventHandler, EventArgs>
+            (
+                handler => handler.Invoke,
+                h => memberListInput.TextChanged += h,
+                h => memberListInput.TextChanged -= h
+            );
+
+            var nameChanged = Observable.FromEventPattern<EventHandler, EventArgs>
+            (
+                handler => handler.Invoke,
+                h => classNameInput.TextChanged += h,
+                h => classNameInput.TextChanged -= h
+            );
+
+            variablesChanged
+                .CombineLatest(nameChanged, (ep, s2) => ep)
+                .Throttle(TimeSpan.FromMilliseconds(500))
+                .ObserveOn(this)
+                .Subscribe(x => classDefinition.Text = ResultOrError(() => GenerateClassDefinition(GetClassName(), memberListInput.Text)));
+        }
+
+
+        string GenerateClassDefinition(string name, string text)
+        {
+            var variables = _parser.GetVariables(text);
+            return _builder.BuildClass(name, variables);
         }
 
         string GetClassName()
@@ -58,35 +75,6 @@ namespace CodeHelper
                 result = ex.ToString();
             }
             return result;
-        }
-
-        void UpdateClassDefinition(List<Variable> variables)
-        {
-            classDefinition.Text = ResultOrError(() => _builder.BuildClass(GetClassName(), variables));
-        }
-
-        void UpdateUiFromMemberList(params Action<List<Variable>>[] actions)
-        {
-            if (!_updatesEnabled)
-                return;
-
-            var variables = _parser.GetVariables(memberListInput.Text);
-
-            var updates = from action in actions
-                          let a = new Action(() => action(variables))
-                          select a;
-
-            IgnoreUpdates(updates.ToArray());
-        }
-
-        private void memberInput_TextChanged(object sender, EventArgs e)
-        {
-            UpdateUiFromMemberList(UpdateClassDefinition);
-        }
-
-        private void classNameInput_TextChanged(object sender, EventArgs e)
-        {
-            UpdateUiFromMemberList(UpdateClassDefinition);
         }
     }
 }

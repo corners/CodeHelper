@@ -57,7 +57,6 @@
             this.memberListInput.Size = new System.Drawing.Size(423, 562);
             this.memberListInput.TabIndex = 3;
             this.memberListInput.WordWrap = false;
-            this.memberListInput.TextChanged += new System.EventHandler(this.memberInput_TextChanged);
             // 
             // label1
             // 
@@ -113,7 +112,6 @@
             this.classNameInput.Size = new System.Drawing.Size(425, 22);
             this.classNameInput.TabIndex = 1;
             this.classNameInput.Text = "ClassName";
-            this.classNameInput.TextChanged += new System.EventHandler(this.classNameInput_TextChanged);
             // 
             // splitContainer1
             // 
@@ -177,6 +175,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "ClassBuilderForm";
             this.Text = "Class Builder";
+            this.Load += new System.EventHandler(this.ClassBuilderForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
